@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React - Example 11</title>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>-->
+    <script src="../lib/react.js"></script>
+    <script src="../lib/JSXTransformer.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/marked.min.js"></script>
+  </head>
+  <body>
+    <hr />
+    <h1>Some title!</h1>
+    <code> <!-- Some notes... -->
+      How to compile JSX:<br />
+        > npm install -g react-tools<br />
+        > cd projectDir<br />
+        > jsx --watch src/ build/<br />
+    </code>
+    <hr />
+    <br />
+
+    <div id="contentNotes"></div>
+    <div id="content"></div>
+
+    <!-- JSX 
+    How to compile JSX:
+      > install -g react-tools
+      > cd projectDir
+      > jsx --watch src/ build/
+    -->
+    <script type="text/jsx" src="./build/app.js"></script>
+
+    <script type="text/javascript">
+      $().ready(function(){
+        $.ajax({ type: "POST", url: "server.php",
+          /*data: {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},*/
+          success: function(data){
+             console.log( JSON.stringify(data) );
+             $('#contentNotes').text( JSON.stringify(data) );
+          },
+          dataType: "JSON"
+        });
+      });
+    </script>
+
+  </body>
+</html>

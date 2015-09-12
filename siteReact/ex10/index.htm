@@ -1,0 +1,46 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React - Example 10</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>-->
+    <script src="./lib/react.js"></script>
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/marked.min.js"></script>
+    <style type="text/css">
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <hr />
+    <h1>Load JSON from server (a server is required!) - Improved</h1>
+    <h4>Adding new comments</h4>
+    <h4 class="red">> Updates from server every 50 seconds <</h4>
+    <code>
+      How to compile JSX:<br />
+        > npm install -g react-tools<br />
+        > cd projectDir<br />
+        > jsx --watch src/ build/<br />
+    </code>
+    <hr />
+    <br />
+
+    <div id="content"></div>
+
+    <!-- JSX 
+    How to compile JSX:
+      > install -g react-tools
+      > cd projectDir
+      > jsx --watch src/ build/
+    -->
+    <script src="build/app.js"></script>
+
+  </body>
+</html>

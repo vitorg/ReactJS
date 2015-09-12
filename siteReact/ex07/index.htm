@@ -1,0 +1,121 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React - Example 7</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>-->
+    <script src="../lib/react.js"></script>
+    <script src="../lib/JSXTransformer.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/marked.min.js"></script>
+  </head>
+  <body>
+    <hr />
+    <h1>Load JSON from server (a server is required!)</h1>
+    <hr />
+    <br />
+
+    <div id="content"></div>
+
+    <!-- in JSX -->
+    <script type="text/jsx">
+
+      /*var data = [
+        {author: "Pete Hunt", text: "This is one comment"},
+        {author: "Jordan Walke", text: "This is *another* comment"}
+      ];*/
+
+      var Comment = React.createClass({
+        render: function() {
+          var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
+          return (
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+            </div>
+          );
+        }
+      });
+
+      var CommentList = React.createClass({
+        render: function() {
+          var commentNodes = this.props.data.map(function (comment,index) {
+            return (
+              <Comment key={index} author={comment.author}>
+                {comment.text}
+              </Comment>
+            );
+          });
+          return (
+            <div className="commentList">
+              {commentNodes}
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm">
+              Hello, world! I am a CommentForm.
+            </div>
+          );
+        }
+      });
+
+      /*var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList data={this.props.data} />
+              <CommentForm />
+            </div>
+          );
+        }
+      });*/
+      var CommentBox = React.createClass({
+        getInitialState: function() {
+          return {data: []};
+        },
+        componentDidMount: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList data={this.state.data} />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+
+
+      React.render(
+        <CommentBox /*data={data}*/url="comments.json" />,
+        document.getElementById('content') /*$('#content')[0]*/
+      );
+    </script>
+
+  </body>
+</html>

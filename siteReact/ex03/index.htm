@@ -1,0 +1,58 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React - Example 3</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <script src="../lib/react.js"></script>
+    <script src="../lib/JSXTransformer.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <!-- in JSX -->
+    <script type="text/jsx">
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className="commentList">
+              Hello, world! I am a CommentList.
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm">
+              Hello, world! I am a CommentForm.
+            </div>
+          );
+        }
+      });
+
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+      React.render(
+        <CommentBox />,
+        document.getElementById('content') /*$('#content')[0]*/
+      );
+    </script>
+
+  </body>
+</html>

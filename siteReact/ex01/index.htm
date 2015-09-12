@@ -1,0 +1,56 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React - Example 1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <script src="../lib/react.js"></script>
+    <script src="../lib/JSXTransformer.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <!-- in JSX -->
+    <script type="text/jsx">
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              Hello, world! I am a CommentBox.
+            </div>
+          );
+        }
+      });
+      
+      React.render(
+        <CommentBox />,
+        document.getElementById('content')
+      );
+    </script>
+
+    <!-- the same in JS -->
+    <!--<script type="text/javascript">
+      // tutorial1-raw.js
+      var CommentBox = React.createClass({displayName: 'CommentBox',
+        render: function() {
+          return (
+            React.createElement('div', {className: "commentBox"},
+              "Hello, world! I am a CommentBox."
+            )
+          );
+        }
+      });
+      React.render(
+        React.createElement(CommentBox, null),
+        document.getElementById('content')
+      );
+    </script>-->
+
+
+  </body>
+</html>

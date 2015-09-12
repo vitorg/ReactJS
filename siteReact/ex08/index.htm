@@ -1,0 +1,118 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React - Example 8</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>-->
+    <script src="../lib/react.js"></script>
+    <script src="../lib/JSXTransformer.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/marked.min.js"></script>
+    <style type="text/css">
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <hr />
+    <h1>Load JSON from server (a server is required!)</h1>
+    <h4>The same of the prevous examples, but better organized!</h4>
+    <h4 class="red">> Updates from server every 5 seconds <</h4>
+    <hr />
+    <br />
+
+    <div id="content"></div>
+
+    <!-- in JSX -->
+    <script type="text/jsx">
+
+      var Comment = React.createClass({
+        render: function() {
+          var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
+          return (
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+            </div>
+          );
+        }
+      });
+
+      var CommentList = React.createClass({
+        render: function() {
+          var commentNodes = this.props.data.map(function (comment, index) {
+            return (
+              <Comment 
+                key={index}
+                author={comment.author}>
+                {comment.text}
+              </Comment>
+            );
+          });
+          return (
+            <div className="commentList">
+              {commentNodes}
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm">
+              Hello, world! I am a CommentForm.
+            </div>
+          );
+        }
+      });
+
+      var CommentBox = React.createClass({
+        loadCommentsFromServer: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
+        getInitialState: function() {
+          return {data: []};
+        },
+        componentDidMount: function() {
+          this.loadCommentsFromServer();
+          setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        },
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList data={this.state.data} />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+
+
+      React.render(
+        <CommentBox url="comments.json" pollInterval={5000} />,
+        document.getElementById('content')
+      );
+    </script>
+
+  </body>
+</html>

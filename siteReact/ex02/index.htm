@@ -1,0 +1,36 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React - Example 2</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <script src="../lib/react.js"></script>
+    <script src="../lib/JSXTransformer.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>The same of example 1, but using JS instead of JSX</h1>
+    <p>&nbsp;</p>
+    <div id="content"></div>
+    <script type="text/javascript">
+      var CommentBox = React.createClass({displayName: 'CommentBox',
+        render: function() {
+          return (
+            React.createElement('div', {className: "commentBox"},
+              "Hello, world! I am a CommentBox."
+            )
+          );
+        }
+      });
+      
+      React.render(
+        React.createElement(CommentBox, null),
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
